@@ -16,7 +16,12 @@ confLabel = tk.Label(root, text="", fg='black')
 def main(username,password):
     usernameEntry.delete(0,tk.END)
     passwordEntry.delete(0, tk.END)
-    balanceLabel = tk.Label(root, text='')
+
+    client = tk.Toplevel(root)
+    client.title(f'ZBANK LINK - {username}')
+    client.geometry('790x590')
+
+    balanceLabel = tk.Label(client, text='',font=('Arial',90))
 
     def getBalance():
         client_socket.send(f'balance.{username}'.encode('utf-8'))
@@ -24,10 +29,6 @@ def main(username,password):
         balas = balas.decode('utf-8')
         balanceLabel.config(text=f'£{balas}')
         print(balas)
-
-    client = tk.Toplevel(root)
-    client.title(f'ZBANK LINK - {username}')
-    client.geometry('799x599')
 
     balanceLabel.pack()
     getBalance()
@@ -50,6 +51,7 @@ def login():
         confLabel.config(text='Account Not Found', fg='red')  
     else:
         confLabel.config(text="Sorry, we couldn't log you in. We don't know why.", fg='red')  
+
 
 mainTitle = tk.Label(root, text='ZBANK LINK - LOGIN', font=('Arial', 40))  
 usernameLabel = tk.Label(root, text='Username:')
