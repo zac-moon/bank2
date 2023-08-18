@@ -29,11 +29,12 @@ def handle_client(client_socket):
                 elif cmd == "balance":
                     username = datas[1]
                     with open(f'db/balance/{username}') as file:
-                        bal = file.send()
+                        bal = file.read()
+                        bal = str(bal)
                     client_socket.send(f'{bal}'.encode('utf-8'))
 
-        except:
-            print("Error:")
+        except Exception as error:
+            print(f"Error: {error}")
             break
     client_socket.close()
 
