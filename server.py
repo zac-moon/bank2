@@ -6,6 +6,7 @@ def handle_client(client_socket):
         try:
             data = client_socket.recv(1024)
             data = data.decode('utf-8')
+            print(data)
             if not data:
                 print("Client disconnected")
                 break

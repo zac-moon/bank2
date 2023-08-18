@@ -19,6 +19,7 @@ def login():
     client_socket.send(f'login.{username}.{password}'.encode('utf-8'))
     conf =client_socket.recv(1024)
     conf = conf.decode('utf-8')
+    print('conf')
 
 mainTitle = tk.Label(root,text='ZBANK LINK - LOGIN',font=('Arial',60))
 usernameLabel = tk.Label(root, text='Username :')
