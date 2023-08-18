@@ -6,7 +6,7 @@ root = tk.Tk()
 root.title('ZBANK LINK - LOGIN')
 root.geometry('800x600')
 
-host = "127.0.0.1"
+host = "192.168.1.71"
 port = 12345
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
