@@ -24,12 +24,13 @@ def main(username,password):
         balas = balas.decode('utf-8')
         balanceLabel.config(text=f'£{balas}')
         print(balas)
-        
+
     client = tk.Toplevel(root)
     client.title(f'ZBANK LINK - {username}')
     client.geometry('799x599')
 
     balanceLabel.pack()
+    getBalance()
 
 
 def login():
