@@ -21,8 +21,18 @@ def main(username, password):
     client.title(f'ZBANK LINK - {username}')
     client.geometry('790x590')
 
+    def logOut():
+        client.destroy()
+        confLabel.config(text='',fg='black')
+
+    def transfer():
+        trans = tk.Toplevel(client)
+        trans.title('Transfer Menu')
+        trans.geometry('')
+
     balanceLabel = tk.Label(client, text='', font=('Arial', 90))
-    transferButton = tk.Button(client,text='Transfer',width=80,height=80)
+    transferButton = tk.Button(client,text='Transfer',command=transfer,width=8,height=6)
+    logoutButton = tk.Button(client, text='Log Out',command=logOut,width=8,height=6)
 
     def getBalance(ty):
         if ty == "fir":
@@ -37,6 +47,7 @@ def main(username, password):
 
     balanceLabel.pack()
     transferButton.pack()
+    logoutButton.pack()
     getBalance('fir')
 
 
