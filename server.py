@@ -26,6 +26,11 @@ def handle_client(client_socket):
                             client_socket.send('Incorrect Password'.encode('utf-8'))
                     except FileNotFoundError:
                         client_socket.send('Account Not Found'.encode('utf-8'))
+                elif cmd == "balance":
+                    username = datas[1]
+                    with open(f'db/balance/{username}') as file:
+                        bal = file.send()
+                    client_socket.send(f'{bal}'.encode('utf-8'))
 
         except:
             print("Error:")

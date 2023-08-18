@@ -13,6 +13,25 @@ client_socket.connect((host, port))
 
 confLabel = tk.Label(root, text="", fg='black') 
 
+def main(username,password):
+    usernameEntry.delete(0,tk.END)
+    passwordEntry.delete(0, tk.END)
+    balanceLabel = tk.Label(root, text='')
+
+    def getBalance():
+        client_socket.send(f'balance.{username}'.encode('utf-8'))
+        balas = client_socket.recv(1024)
+        balas = balas.decode('utf-8')
+        balanceLabel.config(text=f'£{balas}')
+        print(balas)
+        
+    client = tk.Toplevel(root)
+    client.title(f'ZBANK LINK - {username}')
+    client.geometry('799x599')
+
+    balanceLabel.pack()
+
+
 def login():
     username = usernameEntry.get()
     password = passwordEntry.get()
@@ -23,6 +42,7 @@ def login():
     print(conf)
     if conf == "Correct Details":
         confLabel.config(text="Correct Details", fg='green')
+        main(username, password)
     elif conf == "Incorrect Password":
         confLabel.config(text="Incorrect Password", fg='red')  
     elif conf == "Account Not Found":
