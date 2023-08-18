@@ -33,7 +33,7 @@ def handle_client(client_socket):
 
 def main():
     host = "192.168.1.71"
-    port = 12345
+    port = 12346
 
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((host, port))
