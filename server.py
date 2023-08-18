@@ -7,13 +7,22 @@ def handle_client(client_socket):
         try:
             data = client_socket.recv(1024)
             data = data.decode('utf-8')
-            print(data)
+
             if not data:
                 print("Client disconnected")
                 break
             else:
                 datas = data.split('.')
                 cmd = datas[0]
+                
+                try:
+                    if datas[2]=='upd':
+                        pass
+                    else:
+                        print(data)
+                except IndexError:
+                    print(data)
+
                 if cmd =="login":
                     username = datas[1]
                     password = datas[2]

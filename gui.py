@@ -13,25 +13,31 @@ client_socket.connect((host, port))
 
 confLabel = tk.Label(root, text="", fg='black') 
 
-def main(username,password):
-    usernameEntry.delete(0,tk.END)
+def main(username, password):
+    usernameEntry.delete(0, tk.END)
     passwordEntry.delete(0, tk.END)
 
     client = tk.Toplevel(root)
     client.title(f'ZBANK LINK - {username}')
     client.geometry('790x590')
 
-    balanceLabel = tk.Label(client, text='',font=('Arial',90))
+    balanceLabel = tk.Label(client, text='', font=('Arial', 90))
+    transferButton = tk.Button(client,text='Transfer',width=80,height=80)
 
-    def getBalance():
-        client_socket.send(f'balance.{username}'.encode('utf-8'))
+    def getBalance(ty):
+        if ty == "fir":
+            client_socket.send(f'balance.{username}'.encode('utf-8'))
+        else:
+            client_socket.send(f'balance.{username}.upd'.encode('utf-8'))
         balas = client_socket.recv(1024)
         balas = balas.decode('utf-8')
         balanceLabel.config(text=f'£{balas}')
         print(balas)
+        client.after(200, getBalance('upd'))
 
     balanceLabel.pack()
-    getBalance()
+    transferButton.pack()
+    getBalance('fir')
 
 
 def login():
