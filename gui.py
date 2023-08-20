@@ -5,7 +5,7 @@ root = tk.Tk()
 root.title('ZBANK LINK - LOGIN')
 root.geometry('800x600')
 
-host = "192.168.1.71"
+host = "127.0.0.1"
 port = 12346
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -30,6 +30,26 @@ def main(username, password):
         trans.title('Transfer Menu')
         trans.geometry('')
 
+        detLabel = tk.Label(trans,text='',fg='black')
+
+        def trTransfer():
+            to = toEntry.get()
+            amount = amountEntry.get()
+            client_socket.send(f'transfer.{username}.{amount}.{to}'.encode('utf-8'))
+
+        toLabel = tk.Label(trans,text="Enter Username of Account to Transfer Too:")
+        toEntry = tk.Entry(trans)
+        amountLabel = tk.Label(trans,text="Enter Amount to Transfer :")
+        amountEntry = tk.Entry(trans)
+        transBtn = tk.Button(trans,text='Transfer Funds',command=trTransfer)
+
+        toLabel.pack()
+        toEntry.pack()
+        amountLabel.pack()
+        amountEntry.pack()
+        transBtn.pack()
+        detLabel.pack()
+
     balanceLabel = tk.Label(client, text='', font=('Arial', 90))
     transferButton = tk.Button(client,text='Transfer',command=transfer,width=8,height=6)
     logoutButton = tk.Button(client, text='Log Out',command=logOut,width=8,height=6)
@@ -42,7 +62,6 @@ def main(username, password):
         balas = client_socket.recv(1024)
         balas = balas.decode('utf-8')
         balanceLabel.config(text=f'£{balas}')
-        print(balas)
         client.after(200, getBalance('upd'))
 
     balanceLabel.pack()
